@@ -1,4 +1,6 @@
 import { action, makeAutoObservable } from "mobx";
+import { Text } from "../components/Book/PageForBook/Text";
+import { ChangeEvent } from "react";
 
 export enum PageTypeEnum {
     Cover = "Cover",
@@ -6,18 +8,15 @@ export enum PageTypeEnum {
 }
 
 export class BookPageStore {
-    EditorMode: boolean = false;
-    PageType: PageTypeEnum = PageTypeEnum.Cover;
+    Aside: boolean = false;
+    BottomSide: boolean = false;
+    Text: string = Text;
 
     constructor() {
         makeAutoObservable(this);
     }
 
-    @action EditorModeSwitcher() {
-        this.EditorMode = !this.EditorMode;
-    }
-
-    @action PageTypeSwitcher(type: PageTypeEnum) {
-        this.PageType = type;
+    @action TextAreaChange(e: ChangeEvent<HTMLTextAreaElement>) {
+        this.Text = e.target.value;
     }
 }
