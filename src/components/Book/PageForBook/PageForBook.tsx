@@ -1,14 +1,17 @@
 import React from "react";
 import styles from "./PageForBook.module.scss";
 import { useRootStore } from "../../../utils/rootStoreUtils";
+import { ShowPaddingOnPageEditorMode } from "../../ShowPaddingOnPageEditorMode/ShowPaddingOnPageEditorMode";
 
 export const PageForBook = () => {
     const {
         BookPageStore: store,
         BookStore: { EditorMode },
+        BookPageSettingsStore: setting,
     } = useRootStore();
     return (
-        <div style={{ padding: "1rem" }} className={styles.PageForBook}>
+        <div style={{ ...setting.padding }} className={styles.PageForBook} id={"1"}>
+            {EditorMode && <ShowPaddingOnPageEditorMode data={setting.padding} />}
             {store.Aside && <div className={styles.PageForBook__side}>side</div>}
             <div className={styles.PageForBook__main}>
                 {EditorMode && (

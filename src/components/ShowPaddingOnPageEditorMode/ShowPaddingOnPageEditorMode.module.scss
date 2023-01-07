@@ -1,0 +1,27 @@
+.ShowPaddingOnPageEditorMode {
+    &__top,
+    &__bottom,
+    &__left,
+    &__right {
+        position: absolute;
+        width: fit-content;
+        height: fit-content;
+        inset: 0;
+        margin: auto;
+        line-height: 1;
+    }
+    &__top {
+        bottom: auto;
+    }
+    &__bottom {
+        top: auto;
+    }
+    &__left {
+        writing-mode: vertical-rl;
+        right: auto;
+    }
+    &__right {
+        writing-mode: vertical-rl;
+        left: auto;
+    }
+}

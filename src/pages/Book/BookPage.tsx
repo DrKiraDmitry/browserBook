@@ -3,8 +3,8 @@ import styles from "./BookPage.module.scss";
 import { Cover } from "../../components/Book/Cover/Cover";
 import { PageForBook } from "../../components/Book/PageForBook/PageForBook";
 import { useRootStore } from "../../utils/rootStoreUtils";
-import { PageTypeEnum } from "../../stores/BookPageStore";
 import { observer } from "mobx-react-lite";
+import { PageTypeEnum } from "../../stores/BookStore";
 
 export const BookPage = observer(() => {
     const { BookStore: store } = useRootStore();

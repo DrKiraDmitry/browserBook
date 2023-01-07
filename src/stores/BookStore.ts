@@ -6,8 +6,8 @@ export enum PageTypeEnum {
 }
 
 export class BookStore {
-    EditorMode: boolean = false;
-    PageType: PageTypeEnum = PageTypeEnum.Cover;
+    EditorMode: boolean = true;
+    PageType: PageTypeEnum = PageTypeEnum.Page;
 
     constructor() {
         makeAutoObservable(this);
