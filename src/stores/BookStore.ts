@@ -6,7 +6,7 @@ export enum PageTypeEnum {
 }
 
 export class BookStore {
-    EditorMode: boolean = true;
+    EditorMode: boolean = false;
     PageType: PageTypeEnum = PageTypeEnum.Page;
 
     constructor() {

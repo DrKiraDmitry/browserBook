@@ -1,7 +1,9 @@
 .PageForBook {
     position: relative;
     display: flex;
-    width: 100%;
+    width: 600px;
+    height: 800px;
+    box-sizing: border-box;
     &__main {
         display: flex;
         width: 100%;
