@@ -2,8 +2,10 @@ import React, { FC, useState } from "react";
 import styles from "./PageForBook.module.scss";
 import { useRootStore } from "../../../utils/rootStoreUtils";
 import { ShowPaddingOnPageEditorMode } from "../../ShowPaddingOnPageEditorMode/ShowPaddingOnPageEditorMode";
+import { TextAreaButAllChange } from "../../InputsComponents/TextAreaButAllChange/TextAreaButAllChange";
+import { observer } from "mobx-react-lite";
 
-export const PageForBook: FC<{ text: string }> = ({ text }) => {
+export const PageForBook: FC<{ text: string }> = observer(({ text }) => {
     const {
         BookPageStore: store,
         BookStore: { EditorMode },
@@ -16,10 +18,10 @@ export const PageForBook: FC<{ text: string }> = ({ text }) => {
             {store.Aside && <div className={styles.PageForBook__side}>side</div>}
             <div className={styles.PageForBook__main}>
                 {EditorMode && (
-                    <textarea
+                    <TextAreaButAllChange
                         className={styles.PageForBook__textarea}
-                        defaultValue={store.Text}
-                        onChange={(e) => store.TextAreaChange(e)}
+                        defaultValue={text}
+                        onChange={(x) => store.TextAreaChange(x)}
                     />
                 )}
                 {!EditorMode && (
@@ -33,32 +35,36 @@ export const PageForBook: FC<{ text: string }> = ({ text }) => {
             </div>
         </div>
     );
-};
+});
 
-export const PagesLayer = () => {
+export const PagesLayer = observer(() => {
     const {
         BookPageStore: store,
         BookStore: { EditorMode },
         BookPageSettingsStore: setting,
     } = useRootStore();
+
     const [currentPage, setCurrentPage] = useState(0);
-    const lengthPage = 1400;
-    const howPages = Math.round(store.Text.length / lengthPage) + 1;
-    const totalPages = howPages % 2 ? howPages + 1 : howPages;
-    const cutText = new Array(totalPages).fill(1).map((el, i) => {
-        console.log(store.Text.length, howPages, totalPages, i * lengthPage, (i + 1) * lengthPage, i);
-        return store.Text.slice(i * lengthPage, (i + 1) * lengthPage);
-    });
+
     return (
         <>
-            <button onClick={() => setCurrentPage((prev) => prev - 2)} disabled={currentPage === 0}>
+            <button
+                style={{ border: 0 }}
+                onClick={() => setCurrentPage((prev) => prev - 2)}
+                disabled={currentPage === 0}
+            >
                 prev
             </button>
-            <PageForBook text={cutText[currentPage]} />
-            <PageForBook text={cutText[currentPage + 1]} />
-            <button onClick={() => setCurrentPage((prev) => prev + 2)} disabled={currentPage === totalPages - 2}>
-                next
-            </button>
+            {store.Text.split("\n").length} {store.Text.length}
+            <PageForBook text={store.Text} />
+            {/*<PageForBook text={store.cutText()[currentPage + 1]} />*/}
+            {/*<button*/}
+            {/*    style={{ border: 0 }}*/}
+            {/*    onClick={() => setCurrentPage((prev) => prev + 2)}*/}
+            {/*    disabled={currentPage === store.totalPages() - 2}*/}
+            {/*>*/}
+            {/*    next*/}
+            {/*</button>*/}
         </>
     );
-};
+});
