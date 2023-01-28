@@ -1,5 +1,5 @@
 import { action, computed, makeAutoObservable } from "mobx";
-import { BigText, VeryBigText } from "../components/Book/PageForBook/Text";
+import { BigText, VeryBigText, Text } from "../components/Book/PageForBook/Text";
 
 type Couple = {
     text: string;
@@ -13,7 +13,7 @@ type Couple = {
 export class BookPageStore {
     Aside: boolean = false;
     BottomSide: boolean = false;
-    Text: string = "";
+    Text: string = Text;
     lengthPage = 1400;
     currentPage = 0;
 

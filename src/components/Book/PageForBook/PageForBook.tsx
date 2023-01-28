@@ -2,7 +2,6 @@ import React, { FC, useState } from "react";
 import styles from "./PageForBook.module.scss";
 import { useRootStore } from "../../../utils/rootStoreUtils";
 import { ShowPaddingOnPageEditorMode } from "../../ShowPaddingOnPageEditorMode/ShowPaddingOnPageEditorMode";
-import { TextAreaButAllChange } from "../../InputsComponents/TextAreaButAllChange/TextAreaButAllChange";
 import { observer } from "mobx-react-lite";
 
 export const PageForBook: FC<{ text: string }> = observer(({ text }) => {
@@ -17,13 +16,7 @@ export const PageForBook: FC<{ text: string }> = observer(({ text }) => {
             {EditorMode && <ShowPaddingOnPageEditorMode data={setting.padding} />}
             {store.Aside && <div className={styles.PageForBook__side}>side</div>}
             <div className={styles.PageForBook__main}>
-                {EditorMode && (
-                    <TextAreaButAllChange
-                        className={styles.PageForBook__textarea}
-                        defaultValue={text}
-                        onChange={(x) => store.TextAreaChange(x)}
-                    />
-                )}
+                {EditorMode && <></>}
                 {!EditorMode && (
                     <div
                         className={styles.PageForBook__text}
