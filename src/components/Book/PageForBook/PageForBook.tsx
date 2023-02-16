@@ -3,6 +3,7 @@ import styles from "./PageForBook.module.scss";
 import { useRootStore } from "../../../utils/rootStoreUtils";
 import { ShowPaddingOnPageEditorMode } from "../../ShowPaddingOnPageEditorMode/ShowPaddingOnPageEditorMode";
 import { observer } from "mobx-react-lite";
+import { Editor } from "../../Editor";
 
 export const PageForBook: FC<{ text: string }> = observer(({ text }) => {
     const {
@@ -16,7 +17,7 @@ export const PageForBook: FC<{ text: string }> = observer(({ text }) => {
             {EditorMode && <ShowPaddingOnPageEditorMode data={setting.padding} />}
             {store.Aside && <div className={styles.PageForBook__side}>side</div>}
             <div className={styles.PageForBook__main}>
-                {EditorMode && <></>}
+                {EditorMode && <Editor />}
                 {!EditorMode && (
                     <div
                         className={styles.PageForBook__text}
@@ -37,27 +38,24 @@ export const PagesLayer = observer(() => {
         BookPageSettingsStore: setting,
     } = useRootStore();
 
-    const [currentPage, setCurrentPage] = useState(0);
-
     return (
         <>
             <button
                 style={{ border: 0 }}
-                onClick={() => setCurrentPage((prev) => prev - 2)}
-                disabled={currentPage === 0}
+                onClick={() => store.setCurrentPage(store.currentPage - 2)}
+                disabled={store.currentPage === 1}
             >
                 prev
             </button>
-            {store.Text.split("\n").length} {store.Text.length}
-            <PageForBook text={store.Text} />
-            {/*<PageForBook text={store.cutText()[currentPage + 1]} />*/}
-            {/*<button*/}
-            {/*    style={{ border: 0 }}*/}
-            {/*    onClick={() => setCurrentPage((prev) => prev + 2)}*/}
-            {/*    disabled={currentPage === store.totalPages() - 2}*/}
-            {/*>*/}
-            {/*    next*/}
-            {/*</button>*/}
+            <PageForBook text={store.currentCouple[0].text} />
+            <PageForBook text={store.currentCouple[1].text} />
+            <button
+                style={{ border: 0 }}
+                onClick={() => store.setCurrentPage(store.currentPage + 2)}
+                disabled={store.currentPage - 1 === store.totalPage * 2}
+            >
+                next
+            </button>
         </>
     );
 });

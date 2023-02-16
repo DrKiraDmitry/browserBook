@@ -7,7 +7,7 @@ import { observer } from "mobx-react-lite";
 import { PageTypeEnum } from "../../stores/BookStore";
 
 export const BookPage = observer(() => {
-    const { BookStore: store } = useRootStore();
+    const { BookStore: store, BookPageStore } = useRootStore();
     return (
         <div className={styles.BookPage__container}>
             <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
@@ -17,6 +17,10 @@ export const BookPage = observer(() => {
                     EditorMode: {store.EditorMode ? "On" : "Off"}
                 </button>
                 <h1 className={styles.BookPage__title}>Title</h1>
+                <div style={{ display: "flex", flexDirection: "column" }}>
+                    <div>totalPages: {BookPageStore.totalPage}</div>
+                    <div>currentPages: {BookPageStore.currentPage}</div>
+                </div>
             </div>
             <div className={styles.BookPage__book}>
                 {

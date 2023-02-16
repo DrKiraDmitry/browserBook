@@ -1,5 +1,4 @@
 import { action, computed, makeAutoObservable } from "mobx";
-import { BigText, VeryBigText, Text } from "../components/Book/PageForBook/Text";
 
 type Couple = {
     text: string;
@@ -8,46 +7,42 @@ type Couple = {
             element: number;
         }
     ];
-}[][];
+}[];
 
 export class BookPageStore {
     Aside: boolean = false;
     BottomSide: boolean = false;
-    Text: string = Text;
-    lengthPage = 1400;
-    currentPage = 0;
+    currentPage = 1;
 
-    couple: Couple = [
+    allBook: Couple[] = [
         [
             {
-                text: "text",
+                text: "",
             },
-            { text: "" },
+            {
+                text: "",
+            },
         ],
     ];
+
+    currentCouple: Couple = this.allBook[Math.floor(this.currentPage % 2) ? this.currentPage - 1 : this.currentPage];
 
     constructor() {
         makeAutoObservable(this);
     }
 
-    @action init() {
-        //48 вмещает сейчас
-        // const res = VeryBigText;
-        // this.Text = res;
+    @action setCurrentPage(n: number) {
+        let page = n;
+        if (n === 0) page = 1;
+        if (n <= 0) page = 1;
+        if (this.allBook.length * 2 < n) page = this.allBook.length * 2;
+        this.currentPage = page;
+        return this.currentPage;
     }
 
-    // @action totalPages() {
-    //     const howPages = Math.round(this.Text.length / this.lengthPage) + 1;
-    //     return howPages % 2 ? howPages + 1 : howPages;
-    // }
-    //
-    // @action cutText() {
-    //     return new Array(this.totalPages()).fill(1).map((el, i) => {
-    //         return this.Text.slice(i * this.lengthPage, (i + 1) * this.lengthPage);
-    //     });
-    // }
-
-    @action TextAreaChange(text: string) {
-        this.Text = text;
+    @computed get totalPage() {
+        return this.allBook.length - 1;
     }
+
+    @action init() {}
 }
