@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC } from "react";
 import styles from "./PageForBook.module.scss";
 import { useRootStore } from "../../../utils/rootStoreUtils";
 import { ShowPaddingOnPageEditorMode } from "../../ShowPaddingOnPageEditorMode/ShowPaddingOnPageEditorMode";
@@ -32,17 +32,13 @@ export const PageForBook: FC<{ text: string }> = observer(({ text }) => {
 });
 
 export const PagesLayer = observer(() => {
-    const {
-        BookPageStore: store,
-        BookStore: { EditorMode },
-        BookPageSettingsStore: setting,
-    } = useRootStore();
+    const { BookPageStore: store } = useRootStore();
 
     return (
         <>
             <button
                 style={{ border: 0 }}
-                onClick={() => store.setCurrentPage(store.currentPage - 2)}
+                onClick={() => store.setCurrentPage((x) => x - 2)}
                 disabled={store.currentPage === 1}
             >
                 prev
@@ -51,8 +47,8 @@ export const PagesLayer = observer(() => {
             <PageForBook text={store.currentCouple[1].text} />
             <button
                 style={{ border: 0 }}
-                onClick={() => store.setCurrentPage(store.currentPage + 2)}
-                disabled={store.currentPage - 1 === store.totalPage * 2}
+                onClick={() => store.setCurrentPage((x) => x + 2)}
+                disabled={store.currentPage - 1 === store.totalCouple * 2}
             >
                 next
             </button>

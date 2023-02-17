@@ -31,16 +31,16 @@ export class BookPageStore {
         makeAutoObservable(this);
     }
 
-    @action setCurrentPage(n: number) {
-        let page = n;
-        if (n === 0) page = 1;
-        if (n <= 0) page = 1;
-        if (this.allBook.length * 2 < n) page = this.allBook.length * 2;
+    @action setCurrentPage(callback: (prev: number) => number) {
+        let page = callback(this.currentPage);
+        if (page === 0) page = 1;
+        if (page <= 0) page = 1;
+        if (this.allBook.length * 2 < page) page = this.allBook.length * 2;
         this.currentPage = page;
         return this.currentPage;
     }
 
-    @computed get totalPage() {
+    @computed get totalCouple() {
         return this.allBook.length - 1;
     }
 
