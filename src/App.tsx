@@ -2,7 +2,7 @@ import React from "react";
 import { RootStore } from "src/stores/RootStore";
 import { observer, Provider } from "mobx-react";
 import "mobx-react-lite/batchingForReactDom";
-import { BookPage } from "./pages/Book/BookPage";
+import { MainPage } from "./pages/Main/MainPage";
 
 let root: RootStore;
 
@@ -17,7 +17,18 @@ export const App = observer(() => {
     ensureInitialized();
     return (
         <Provider rootStore={root}>
-            <BookPage />
+            <div
+                style={{
+                    width: "100%",
+                    height: "100vh",
+                    display: "flex",
+                    background: "chocolate",
+                    alignItems: "center",
+                    justifyContent: "center",
+                }}
+            >
+                <MainPage />
+            </div>
         </Provider>
     );
 });

@@ -1,6 +1,5 @@
 import React, { FC } from "react";
 import styles from "./ShowPaddingOnPageEditorMode.module.scss";
-import { PaddingType } from "../../stores/BookPageSettingsStore";
 
 const ArrowIcon: FC<{ size: string; rotate?: boolean }> = ({ size, rotate }) => {
     return (
@@ -21,7 +20,7 @@ const ArrowIcon: FC<{ size: string; rotate?: boolean }> = ({ size, rotate }) => 
     );
 };
 
-export const ShowPaddingOnPageEditorMode: FC<{ data: PaddingType }> = ({ data }) => {
+export const ShowPaddingOnPageEditorMode: FC<{ data: any }> = ({ data }) => {
     return (
         <>
             <div className={styles.ShowPaddingOnPageEditorMode__top}>
