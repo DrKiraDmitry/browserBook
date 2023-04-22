@@ -1,7 +1,7 @@
-export const OverflowAlert = (box: HTMLDivElement, text: HTMLDivElement) =>
+export const OverflowAlert = (BoxHeight: number, TextHeight: number) =>
     console.table({
         title: "have overflow",
-        box: box?.clientHeight,
-        text: text?.clientHeight,
-        difference: text?.clientHeight - box?.clientHeight,
+        box: BoxHeight,
+        text: TextHeight,
+        difference: TextHeight - BoxHeight,
     });

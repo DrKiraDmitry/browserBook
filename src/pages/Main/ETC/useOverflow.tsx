@@ -1,20 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { OverflowAlert } from "./OverflowAlert";
 
-export const useOverflow = (
-    BoxRef: React.MutableRefObject<HTMLDivElement | null>,
-    TextRef: React.MutableRefObject<HTMLDivElement | null>
-) => {
+export const useOverflow = (BoxHeight?: number, TextHeight?: number) => {
     const [Overflow, setOverflow] = useState(false);
 
     useEffect(() => {
-        if (!BoxRef.current || !TextRef.current) return;
-        const box = BoxRef.current;
-        const text = TextRef.current;
-        if (box?.clientHeight >= text?.clientHeight) return setOverflow(false);
-        OverflowAlert(box, text);
-        return setOverflow(true);
-    }, [TextRef.current?.clientHeight]);
+        if (typeof BoxHeight === "number" && typeof TextHeight === "number") {
+            if (BoxHeight >= TextHeight) return setOverflow(false);
+            OverflowAlert(BoxHeight, TextHeight);
+            return setOverflow(true);
+        }
+    }, [TextHeight]);
 
     return Overflow;
 };

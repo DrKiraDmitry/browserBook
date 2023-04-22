@@ -6,16 +6,12 @@ import { useSliceOnePage } from "./ETC/useSliceOnePage";
 export const MainPage = () => {
     const BoxRef = useRef<HTMLDivElement | null>(null);
     const TextRef = useRef<HTMLDivElement | null>(null);
-    const { nextText, prevText, stash, overflow } = useSliceOnePage(BoxRef, TextRef, BibleExodus);
+    const { text, stash } = useSliceOnePage(BibleExodus, BoxRef.current?.clientHeight, TextRef.current?.clientHeight);
 
     return (
         <div className={styles.MainPage}>
             <div className={styles.ContentBox} ref={BoxRef}>
-                <div
-                    className={styles.TextBox}
-                    dangerouslySetInnerHTML={{ __html: overflow ? prevText : nextText }}
-                    ref={TextRef}
-                />
+                <div className={styles.TextBox} dangerouslySetInnerHTML={{ __html: text }} ref={TextRef} />
             </div>
         </div>
     );
