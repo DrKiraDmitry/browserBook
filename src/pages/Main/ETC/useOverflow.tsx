@@ -13,7 +13,7 @@ export const useOverflow = (
         const text = TextRef.current;
         if (box?.clientHeight >= text?.clientHeight) return setOverflow(false);
         OverflowAlert(box, text);
-        setOverflow(true);
+        return setOverflow(true);
     }, [TextRef.current?.clientHeight]);
 
     return Overflow;

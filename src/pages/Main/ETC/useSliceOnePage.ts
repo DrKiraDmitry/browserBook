@@ -2,28 +2,34 @@ import React, { useEffect, useState } from "react";
 import { useOverflow } from "./useOverflow";
 import { giveWord } from "./GiveWord";
 
+// Нужен регресс
+
 export const useSliceOnePage = (
     BoxRef: React.MutableRefObject<HTMLDivElement | null>,
     TextRef: React.MutableRefObject<HTMLDivElement | null>,
     cutText: string
 ) => {
-    const Overflow = useOverflow(BoxRef, TextRef);
-    const [text, setText] = useState("");
+    const overflow = useOverflow(BoxRef, TextRef);
+    const [nextText, setNextText] = useState("");
+    const [prevText, setPrevText] = useState("");
     const [stash, setStash] = useState(cutText);
 
     const update = () => {
-        if (Overflow) return;
+        if (overflow) return;
         const { next, left } = giveWord(stash);
-        setText((prev) => (prev + " " + next).trim());
+        setPrevText(nextText);
+        setNextText((prev) => (prev + " " + next).trim());
         setStash(left);
     };
 
     useEffect(() => {
         update();
-    }, [Overflow, text]);
+    }, [overflow, nextText]);
 
     return {
-        text,
+        nextText,
         stash,
+        prevText,
+        overflow,
     };
 };

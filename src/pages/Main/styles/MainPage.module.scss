@@ -3,9 +3,16 @@
     height: 800px;
     background: white;
     box-sizing: border-box;
+    padding: 1rem;
 }
 
-.TextContainer {
-    padding: 1rem;
+.ContentBox {
+    box-sizing: border-box;
+    display: flex;
+    height: 100%;
+}
+
+.TextBox {
     white-space: pre-wrap;
+    display: inline-table;
 }
