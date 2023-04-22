@@ -1,14 +1,15 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { useOverflow } from "./useOverflow";
 
-// Нужен регресс
-
 enum SliceStep {
     progress = "progress", //Первая стадия, наполняем страницу пока не заполниться
     regress = "regress", //Вторая стадия, возращаемся назад пока не получим снова не заполненую страницу
     stop = "stop", // Финал останавливаем проццесс отдаем результат
 }
 
+// For working this component you need create
+// textContainer - it's container, without css padding
+// textBox - box must be in textContainer, without css padding
 export const useSliceOnePage = (cutText: string, BoxHeight?: number, TextHeight?: number) => {
     const overflow = useOverflow(BoxHeight, TextHeight);
 
@@ -29,10 +30,13 @@ export const useSliceOnePage = (cutText: string, BoxHeight?: number, TextHeight?
     const regress = () => {
         if (!overflow) return setStep(SliceStep.stop);
         const textBuffer = text.trim().split(" ");
-        const takeWord1 = textBuffer.pop();
-        const takeWord2 = textBuffer.pop();
-        if (!takeWord1 || !takeWord2) return setStep(SliceStep.stop);
+        const takeWord1 = textBuffer.pop(); // Почему-то не сразу передается новый TextHeight и он добавляет два лишних элемента
+        const takeWord2 = textBuffer.pop(); // Потому здесь их два TODO Берет лишние слоаа
+
+        if (!takeWord1 || !takeWord2) return setStep(SliceStep.stop); // Убедимся что у нас вообще есть последние слова
         let inBuffer = [takeWord2, takeWord1];
+
+        //Проверка на то что последнее слово не склеено с переносом строки из-за чего может вылезти текст
         const takeLastWord = textBuffer.slice(-1)[0];
         if (takeLastWord.includes("\n")) {
             textBuffer.pop();
@@ -40,6 +44,7 @@ export const useSliceOnePage = (cutText: string, BoxHeight?: number, TextHeight?
             textBuffer.push(forText);
             inBuffer = [forBuffer, ...inBuffer];
         }
+
         setText(textBuffer.join(" "));
         setStash((prev) => inBuffer.concat(prev));
         setStep(SliceStep.stop);
@@ -48,11 +53,11 @@ export const useSliceOnePage = (cutText: string, BoxHeight?: number, TextHeight?
     useEffect(() => {
         if (step === SliceStep.progress) progress();
         if (step === SliceStep.regress) regress();
-        if (step === SliceStep.stop) console.log(stash);
     }, [text, step]);
 
     return {
         text,
         stash,
+        end: step === SliceStep.stop, // этот флаг нужен для того чтоб сказать хук отработал до конца
     };
 };
