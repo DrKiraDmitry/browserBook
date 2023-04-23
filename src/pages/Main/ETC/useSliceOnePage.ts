@@ -26,7 +26,7 @@ export const useSliceOnePage = (cutText: string, BoxHeight?: number, TextHeight?
         if (!takeWord) return setStep(SliceStep.stop);
         setText((prev) => (prev + " " + takeWord).trim());
         setStash(stashBuffer);
-    };
+    }; // Progress, getter one word from stash and take in page
 
     const regress = () => {
         if (!overflow) return setStep(SliceStep.stop);
@@ -49,7 +49,7 @@ export const useSliceOnePage = (cutText: string, BoxHeight?: number, TextHeight?
         setText(textBuffer.join(" "));
         setStash((prev) => inBuffer.concat(prev));
         setStep(SliceStep.stop);
-    };
+    }; // Regress need, because we understand what our page overflow before overflow, and need return to back
 
     useEffect(() => {
         if (step === SliceStep.progress) progress();
