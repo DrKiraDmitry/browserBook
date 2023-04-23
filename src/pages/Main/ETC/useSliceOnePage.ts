@@ -23,6 +23,7 @@ export const useSliceOnePage = (cutText: string, BoxHeight?: number, TextHeight?
         if (overflow) return setStep(SliceStep.regress);
         const stashBuffer = stash;
         const takeWord = stashBuffer.shift();
+        if (!takeWord) return setStep(SliceStep.stop);
         setText((prev) => (prev + " " + takeWord).trim());
         setStash(stashBuffer);
     };

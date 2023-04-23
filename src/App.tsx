@@ -23,8 +23,6 @@ export const App = observer(() => {
                     height: "100vh",
                     display: "flex",
                     background: "chocolate",
-                    alignItems: "center",
-                    justifyContent: "center",
                 }}
             >
                 <MainPage />

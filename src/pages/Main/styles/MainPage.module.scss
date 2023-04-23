@@ -1,3 +1,8 @@
+.MainPage {
+    display: flex;
+    width: 100%;
+}
+
 .Page {
     width: 600px;
     height: 800px;
@@ -16,4 +21,16 @@
     white-space: pre-wrap;
     display: inline-table;
     height: fit-content;
+}
+
+.PagesList {
+    min-width: 120px;
+    display: flex;
+    flex-direction: column;
+    margin-right: 1rem;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.5);
+    .Page {
+        margin-bottom: 10rem;
+    }
 }
