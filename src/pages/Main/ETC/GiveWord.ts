@@ -7,4 +7,4 @@ export const giveWord = (text: string, count = 1) => {
         next: firstWord.join(" "),
         left: leftWord.join(" "),
     };
-};
+}; // First iteration script for taking word from text

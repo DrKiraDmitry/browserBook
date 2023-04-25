@@ -33,7 +33,7 @@ export const GiveMeBook: FC<{ giveBook: string; takePages: (pages: PagesType[]) 
 }) => {
     const [book, setBook] = useState(giveBook);
     const [pages, setPages] = useState<PagesType[]>([]);
-    const [tumbler, setTumbler] = useState(false);
+    const [tumbler, setTumbler] = useState(false); // Tumbler need for make new Page, and don't think about cleaning Page component
 
     const makePageObject = (str: string) => {
         return {
